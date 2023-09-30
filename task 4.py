@@ -60,11 +60,12 @@ while not board.is_full():
         cell_number = int(input(f"{current_player.name}, выберите номер клетки (1-9): "))
         if 1 <= cell_number <= 9:
             if current_player.make_move(board, cell_number):
-                board.display()
                 if board.check_winner():
+                    board.display()
                     print(f"{current_player.name} победил!")
                     break
                 elif board.is_full():
+                    board.display()
                     print("Ничья! На доске нет свободных клеток.")
                     break
                 else:
