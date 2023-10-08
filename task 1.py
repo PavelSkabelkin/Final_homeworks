@@ -12,9 +12,6 @@ class Stack:
     def is_empty(self):
         return len(self.stack) == 0
 
-    def sort(self):
-        self.stack.sort(key=lambda x: x[1])
-
 
 class TaskManager:
     def __init__(self):
@@ -39,7 +36,8 @@ class TaskManager:
         self.new_task(task, priority)
 
     def sort_by_priority(self):
-        self.tasks.sort()
+        sorted_tasks = sorted(self.tasks.stack, key=lambda x: x[1])
+        self.tasks.stack = sorted_tasks
 
     def __str__(self):
         if self.tasks.is_empty():
@@ -56,9 +54,8 @@ manager = TaskManager()
 
 while True:
     print("\n1. Ввести новую задачу")
-    print("2. Вывести задачи")
+    print("2. Вывести задачи (отсортированные по приоритету)")
     print("3. Удалить задачу")
-    print("4. Сортировать по приоритету")
     print("0. Выйти")
 
     choice = input("Выберите действие: ")
@@ -66,13 +63,11 @@ while True:
     if choice == "1":
         manager.input_task()
     elif choice == "2":
+        manager.sort_by_priority()
         print(manager)
     elif choice == "3":
         task_to_delete = input("Введите задачу для удаления: ")
         manager.delete_task(task_to_delete)
-    elif choice == "4":
-        manager.sort_by_priority()
-        print("Задачи отсортированы по приоритету.")
     elif choice == "0":
         break
     else:
